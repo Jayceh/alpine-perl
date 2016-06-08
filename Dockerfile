@@ -9,10 +9,10 @@ RUN mkdir -p /usr/src/perl
 WORKDIR /usr/src/perl
 
 ## from perl; `true make test_harness` because 1 UTF-8 test fails :(
-RUN curl -SL https://cpan.metacpan.org/authors/id/S/SH/SHAY/perl-5.22.1.tar.bz2 -o perl-5.22.1.tar.bz2 \
-    && echo '29f9b320b0299577a3e1d02e9e8ef8f26f160332 *perl-5.22.1.tar.bz2' | sha1sum -c - \
-    && tar --strip-components=1 -xjf perl-5.22.1.tar.bz2 -C /usr/src/perl \
-    && rm perl-5.22.1.tar.bz2 \
+RUN curl -SL http://www.cpan.org/src/5.0/perl-5.24.0.tar.gz -o perl-5.24.0.tar.gz \
+    && echo '35770ea5cf49a1082852c2300ccc3cbbc58b70fd *perl-5.24.0.tar.gz' | sha1sum -c - \
+    && tar --strip-components=1 -xzf perl-5.24.0.tar.gz -C /usr/src/perl \
+    && rm perl-5.24.0.tar.gz \
     && ./Configure -Duse64bitall -des \
     && make -j$(nproc) \
     && TEST_JOBS=$(nproc) true make test_harness \
